@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13) # CMAKE (heading)
 include(pico_sdk_import.cmake) # CMAKE -> PICO SDK (include)
 
-project(Flashlight C CXX ASM) # CMAKE ("project")
+project(REPL C CXX ASM) # CMAKE ("project")
 pico_sdk_init() # PICO SDK (initialization)
 
 add_executable(repl) # CMAKE (target)
