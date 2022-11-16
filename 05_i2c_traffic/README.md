@@ -6,7 +6,7 @@
 The results are below.
 
 <div align=center>
-<img src="https://github.com/lihzhao14/ese5190_lab2B_part1-10/tree/main/05_i2c_traffic/image/1.jpg" width="450">  
+<img src="https://github.com/lihzhao14/ese5190_lab2B_part1-10/blob/main/05_i2c_traffic/image/1.jpg" width="450">  
 </div>
 
 <div align=center>
