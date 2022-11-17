@@ -1,5 +1,11 @@
 # ese5190_lab2B_part1-10
 
+University of Pennsylvania, ESE 5190: Intro to Embedded Systems, Lab 2  
+
+    Lihong Zhao  
+        LinkedIn: www.linkedin.com/in/lihong-zhao-a24789224  
+    Tested on: Lenovo Legion 5 Pro 16" Laptop, Intel Core i7-12700H， Windows11 
+ 
 ### Demo
 
 <div align=center>
