@@ -1,10 +1,10 @@
-# ese5190_lab2B_part1-10
+# ese5190_lab2B_parts1-10
 
-University of Pennsylvania, ESE 5190: Intro to Embedded Systems, Lab 2  
-
-    Lihong Zhao  
-        LinkedIn: www.linkedin.com/in/lihong-zhao-a24789224  
-    Tested on: Lenovo Legion 5 Pro 16" Laptop, Intel Core i7-12700H， Windows11 
+University of Pennsylvania, ESE 5190: Intro to Embedded Systems, lab2B_parts1-10
+    **Group Members: Pan hao, Lihong Zhao and Xingjian Chen ** 
+    Tested on: 1. Lenovo Legion 5 Pro 16" Laptop, Intel Core i7-12700H， Windows11 
+               2. MacBook Air (M1, 2020), macOS Monterey 12.6
+               3. Lenovo Legion R9000P 2021 15.6"
  
 ### Demo
 
