@@ -21,8 +21,7 @@ Create a 'sequencer' that allows you to record BOOT button presses and play them
 
 ### Result
 
-For the sequencer programming
-We use pyserial library to communicate with the board. To record or replay, must use the python program to monitor the RP2040 behave.
+For the sequencer programming, we use pyserial library to communicate with the board. To record or replay, must use the python program to monitor the RP2040 behave.
 
 The python program will ask user to select record mode or replay mode
 If user select record mode, the python program will collect the register value information send from the RP2040(which is set in the RP2040 program), 

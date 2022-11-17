@@ -1,19 +1,30 @@
+// PIO logic analyser example
+//
+// This program captures samples from a group of pins, at a fixed rate, once a
+// trigger condition is detected (level condition on one pin). The samples are
+// transferred to a capture buffer using the system DMA.
+//
+// 1 to 32 pins can be captured, at a sample rate no greater than system clock
+// frequency.
+
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "pico/stdlib.h"
 #include "hardware/pio.h"
 #include "hardware/dma.h"
 #include "hardware/structs/bus_ctrl.h"
 
-
-// Some logic to analyse:
+// Some logic to analyse: 
 #include "hardware/structs/pwm.h"
 
-const uint CAPTURE_PIN_BASE = 22; // 16
-const uint CAPTURE_PIN_COUNT = 1; // 2
-const uint CAPTURE_N_SAMPLES = 9600; // 96
-const uint BOOT_PIN = 21;
+
+const uint CAPTURE_PIN_BASE = 22;
+const uint CAPTURE_PIN_COUNT = 2;
+const uint CAPTURE_N_SAMPLES = 2048;
+const uint TRIGGER_PIN = 21;
 
 static inline uint bits_packed_per_word(uint pin_count) {
     // If the number of pins to be sampled divides the shift register size, we
@@ -96,8 +107,6 @@ void print_capture_buf(const uint32_t *buf, uint pin_base, uint pin_count, uint3
 
 int main() {
     stdio_init_all();
-    while(!stdio_usb_connected()) sleep_ms(100);
-
     printf("PIO logic analyser example\n");
 
     // We're going to capture into a u32 buffer, for best DMA efficiency. Need
@@ -106,7 +115,7 @@ int main() {
     uint total_sample_bits = CAPTURE_N_SAMPLES * CAPTURE_PIN_COUNT;
     total_sample_bits += bits_packed_per_word(CAPTURE_PIN_COUNT) - 1;
     uint buf_size_words = total_sample_bits / bits_packed_per_word(CAPTURE_PIN_COUNT);
-    uint32_t *capture_buf = malloc(buf_size_words * sizeof(uint32_t));
+    uint32_t * capture_buf = malloc(buf_size_words * sizeof(uint32_t));
     hard_assert(capture_buf);
 
     // Grant high bus priority to the DMA, so it can shove the processors out
@@ -118,12 +127,29 @@ int main() {
     uint sm = 0;
     uint dma_chan = 0;
 
-    logic_analyser_init(pio, sm, CAPTURE_PIN_BASE, CAPTURE_PIN_COUNT, 64.f); //1.f
+    logic_analyser_init(pio, sm, CAPTURE_PIN_BASE, CAPTURE_PIN_COUNT, 65535.f);
 
-    printf("Arming trigger\n");
-    logic_analyser_arm(pio, sm, dma_chan, capture_buf, buf_size_words, BOOT_PIN, false); // CAPTURE_PIN_BASE, true
+    gpio_init(TRIGGER_PIN);
+    gpio_set_dir(TRIGGER_PIN, GPIO_IN);
+    
+    sleep_ms(6000);
 
-    dma_channel_wait_for_finish_blocking(dma_chan);
+    while(true){
+        printf("press boot button to arming trigger\n");
+        
+        while (gpio_get(TRIGGER_PIN) == 1){
+            continue;
+        }
 
-    print_capture_buf(capture_buf, CAPTURE_PIN_BASE, CAPTURE_PIN_COUNT, CAPTURE_N_SAMPLES);
+        logic_analyser_arm(pio, sm, dma_chan, capture_buf, buf_size_words, TRIGGER_PIN, true);
+
+        printf("Start recording\n");
+        
+        dma_channel_wait_for_finish_blocking(dma_chan);
+        printf("Recording done!\n");
+        sleep_ms(1000);
+        print_capture_buf(capture_buf, CAPTURE_PIN_BASE, CAPTURE_PIN_COUNT, CAPTURE_N_SAMPLES);
+        }
+        
 }
+
