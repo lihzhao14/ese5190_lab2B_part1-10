@@ -8,4 +8,4 @@ Update your sequencer to be able to slow down and speed up recordings/replay. On
 
 
 
-Comppare to part3, I add a variable that allow user to adjust the frequency of recording and sending, so that user can decide whether they want to speed up or slow down.
+### Comppare to part3, I add a variable that allow user to adjust the frequency of recording and sending, so that user can decide whether they want to speed up or slow down.
