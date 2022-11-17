@@ -30,3 +30,10 @@ then the python program will print these information to a external txt file so t
 
 If user select replay mode, the python will read the record and send to the RP2040 through the serial port. The RP2040 will receive the message from PC
 and write certain command into the register. In this way, we can successfully replay the command record
+=======
+### Result
+
+<div align=center>
+<img src="https://github.com/lihzhao14/ese5190_lab2B_part1-10/blob/main/03_sequencer/sequencer_demo.gif.gif" width="550">  
+</div>
+
